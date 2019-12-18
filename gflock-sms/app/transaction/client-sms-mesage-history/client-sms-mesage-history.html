@@ -1,0 +1,117 @@
+<section class="content-header">
+    <h1>
+        SMS - MESSAGE HISTORY
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-user"></i> Home</a></li>
+        <li><a href="#">Transaction</a></li>
+        <li class="active"> SMS - MESSAGE HISTORY</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="box box-primary">
+                <div class="box-body">
+                    <div class="form-group">
+                        <label>Client Name :</label>
+                        <input type="text" ng-model="searchFunctions.client" class="form-control" uib-typeahead="client.index_no as client.name for client in clients | filter:$viewValue | limitTo:8" typeahead-input-formatter="client($model).name">
+                        <label>API KEY :</label>
+                        <input type="text" ng-model="searchFunctions.client" class="form-control" uib-typeahead="client.index_no as client.api_key for client in clients | filter:$viewValue | limitTo:8" typeahead-input-formatter="client($model).api_key">
+                        <label>FROM DATE :</label>
+                        <input type="text" ng-model="searchFunctions.fromDate" class="form-control" id="datepicker">
+                        <label>TO DATE :</label>
+                        <input type="text" ng-model="searchFunctions.toDate" class="form-control" id="datepicker1">
+                        <label>RECEIVE NUMBER :</label>
+                        <input type="text" ng-model="searchFunctions.receiveNumber" class="form-control">
+                        <label>CHARACTERS COUNT :</label>
+                        <input type="text" class="form-control" ng-model="searchFunctions.charactorCount">
+                        <label>SMS COUNT :</label>
+                        <select class="form-control" ng-model="searchFunctions.smsCount">
+                            <option value=""></option>
+                            <option value="1">SMS 1</option>
+                            <option value="2">SMS 2</option>
+                        </select>                          
+                    </div>
+                    <div class="box-footer">
+                        <input type="submit" class="btn btn-primary" value="SEARCH" ng-click="findMessageDetails();"/>
+                        <input type="submit" class="btn btn-success" value="CLEAR" ng-click="clear();"/>
+                    </div>
+                </div>                
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="box box-success">
+                <div class="box-body">
+                    <table class="table table-bordered table-hover" style="margin-top: 10px !important;">
+                        <thead>
+                            <tr>
+                                <th style="width: 10px">#</th>
+                                <th>Reload Date</th>
+                                <th>Client</th>
+                                <th class="text-right">API - KEY</th>
+                                <th class="text-right">Receiver Number</th>
+                                <th class="text-right">Characters Count</th>
+                                <th class="text-right">SMS Count</th>
+                                <th class="text-right">Message</th>
+                            </tr>
+                        </thead>
+                        <tbody dir-paginate="details in clienrSmsMessageHistory|itemsPerPage:9" ng-show="clienrSmsMessageHistory.length">
+                            <tr>
+                                <td>{{details.index_no}}</td>
+                                <td>{{details.date}}</td>
+                                <td>{{client(details.client).name}}</td>
+                                <td class="text-right">{{client(details.client).api_key}}</td>
+                                <td class="text-right">{{details.receiver_number}}</td>
+                                <td class="text-right"><span class="badge bg-blue">{{details.characters_count}}</span></td>
+                                <td class="text-right"><span class="badge bg-green">{{details.sms_count}}</span></td>
+                                <td class="text-right">
+                                    <input type="submit" value="MESSAGE" class="btn btn-xs btn-success" ng-click="messageView($index, details.message);"/>
+                                </td>
+                            </tr>
+                            <tr ng-show="messagePosition == $index">
+                                <td colspan="8">
+                                    <textarea ng-model="details.message" style="width: 100%;"></textarea>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div ng-hide="clienrSmsMessageHistory.length" style="height: 400px;">
+                        <div class="box-body">
+                            <center>
+                                <h1><span class="glyphicon glyphicon-thumbs-down" style="color: gold"></span>&nbsp;&nbsp;DATA NOT FOUND</h1>
+                            </center>
+                        </div>
+                    </div>
+                    <table class="table table-hover table-bordered">
+                        <tbody>
+                            <tr>
+                                <td style="width: 50%">TOTAL SMS</td>
+                                <td style="width: 25%" class="text-right">USE SENDER <span class="badge bg-success">{{clienrSmsMessageHistory.length}}</span></td>
+                                <td style="width: 25%" class="text-right">SMS COUNT <span class="badge bg-primary">{{totalSmsCount()}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <dir-pagination-controls
+                        max-size="9"
+                        direction-links="true"
+                        boundary-links="true" >
+                    </dir-pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+            //Date picker
+            $('#datepicker').datepicker({
+                autoclose: true
+            });
+</script>
+<script>
+            //Date picker
+            $('#datepicker1').datepicker({
+                autoclose: true
+            });
+</script>

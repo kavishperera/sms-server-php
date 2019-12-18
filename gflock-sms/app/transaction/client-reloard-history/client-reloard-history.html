@@ -1,0 +1,102 @@
+<section class="content-header">
+    <h1>
+        SMS RELOARD HISTORY
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-user"></i> Home</a></li>
+        <li><a href="#">Transaction</a></li>
+        <li class="active"> SMS RELOARD HISTORY</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-success">
+                <div class="box-body">
+                    <div class="col-md-12" style="margin-bottom: 10px;">
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-search"></i> Name
+                                </div>
+                                <input type="text" ng-model="search.client" class="form-control" uib-typeahead="client.index_no as client.name for client in clients | filter:$viewValue | limitTo:8" typeahead-input-formatter="client($model).name">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-search"></i> API-Key
+                                </div>
+                                <input type="text" ng-model="search.client" class="form-control" uib-typeahead="client.index_no as client.api_key for client in clients | filter:$viewValue | limitTo:8" typeahead-input-formatter="client($model).api_key">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <div class="input-group-addon btn-success">
+                                    <i class="fa fa-search"></i> Date
+                                </div>
+                                <input type="text" ng-model="search.date" class="form-control" id="datepicker">
+                            </div>
+                        </div>
+                    </div>
+                    <uib-tabset active="active" class="nav-tabs-custom">
+                        <uib-tab index="0" heading="SMS RELOARD AMOUNT HISTORY">
+                            <table class="table table-bordered table-hover" style="margin-top: 10px !important;">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10px">#</th>
+                                        <th>Client</th>
+                                        <th>API - KEY</th>
+                                        <th class="text-right">SMS Reload Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="details in allClientReloadSmsHistory|filter:search">
+                                        <td>{{$index}}</td>
+                                        <td>{{client(details.client).name}}</td>
+                                        <td><span class="badge bg-green">{{client(details.client).api_key}}</span></td>
+                                        <td class="text-right">{{details.debit_amount}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </uib-tab>
+                        <uib-tab index="1" heading="SMS RELOARD AMOUNT HISTORY">
+                            <table class="table table-bordered table-hover" style="margin-top: 10px !important;">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10px">#</th>
+                                        <th>Reload Date</th>
+                                        <th>Client</th>
+                                        <th>API - KEY</th>
+                                        <th class="text-right">SMS Reload Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="clintMessage in clientReloadSmsHistory|filter:search|itemsPerPage:7">
+                                        <td>{{$index}}</td>
+                                        <td>{{clintMessage.date}}</td>
+                                        <td>{{client(clintMessage.client).name}}</td>
+                                        <td><span class="badge bg-green">{{client(clintMessage.client).api_key}}</span></td>
+                                        <td class="text-right">{{clintMessage.debit_amount}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <dir-pagination-controls
+                                max-size="7"
+                                direction-links="true"
+                                boundary-links="true" >
+                            </dir-pagination-controls>
+                        </uib-tab>
+                    </uib-tabset>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+            //Date picker
+            $('#datepicker').datepicker({
+                autoclose: true
+            });
+</script>

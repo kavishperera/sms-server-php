@@ -1,0 +1,132 @@
+<section class="content-header">
+    <h1>
+        SMS RELOARD
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-user"></i> Home</a></li>
+        <li><a href="#">Transaction</a></li>
+        <li class="active">SMS RELOARD</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="box box-success">
+                <div class="box-body">
+                    <label><i class="fa fa-search"></i>  SEARCH:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            Name
+                        </div>
+                        <input type="text" class="form-control" ng-model="searchName" uib-typeahead="client as client.name for client in clients | filter:$viewValue | limitTo:8" typeahead-on-select="findClientDetailsByName($model);">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            API KEY
+                        </div>
+                        <input type="text" class="form-control" ng-model="searchApiKey" uib-typeahead="client as client.api_key for client in clients | filter:$viewValue | limitTo:8" typeahead-on-select="findClientDetailsByApiKey($model);">
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <label>CLIENT DETAILS :</label><br>
+                    <label>Name :</label>
+                    <input type="text" class="form-control" readonly ng-model="clientTempData.name">
+                    <label>User Name :</label>
+                    <input type="text" class="form-control" readonly ng-model="clientTempData.user_name"><br>
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default">API KEY</button>
+                        </div>
+                        <input type="text" class="form-control" readonly  ng-model="clientTempData.api_key">
+                    </div><br>
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default"> SMS AMOUNT</button>
+                        </div>
+                        <input type="text" class="form-control text-right" readonly  ng-model="clientSmsAmount">
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <label>NEW SMS RELORD :</label>
+                    <input type="text" class="form-control text-right"  ng-model="newClientSmsAmount"><br>
+                    <button type="submit" class="btn btn-primary btn-sm" ng-click="newSmsAmount();">SAVE</button>
+                    <button type="submit" class="btn btn-danger btn-sm" ng-click="clear();">CLEAR</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="box box-success">
+                <div class="box-body">
+                    <br>
+                    <div class="input-group col-md-8">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" ng-model="search.date" class="form-control pull-right" id="datepicker">
+                    </div>
+                    <br>
+<!--                    <uib-tabset active="active" class="nav-tabs-custom">
+                        <uib-tab index="0" heading="SMS RELOARD AMOUNT HISTORY">-->
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10px">#</th>
+                                        <th>Reload Date</th>
+                                        <th class="text-right">SMS Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="clintMessage in clientReloadSmsHistory|filter:search|itemsPerPage:7">
+                                        <td>{{$index}}</td>
+                                        <td>{{clintMessage.date}}</td>
+                                        <td class="text-right">{{clintMessage.debit_amount}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <dir-pagination-controls
+                                max-size="7"
+                                direction-links="true"
+                                boundary-links="true" >
+                            </dir-pagination-controls>
+<!--                        </uib-tab>
+                        <uib-tab index="1" heading="MESSAGE HISTORY">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10px">#</th>
+                                        <th>Reload Date</th>
+                                        <th>Receiver Number</th>
+                                        <th class="text-right">Characters Count</th>
+                                        <th class="text-right">SMS Count</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="details in clientMessageDetailHistory|filter:search|itemsPerPage:7">
+                                        <td>{{$index}}</td>
+                                        <td>{{details.date}}</td>
+                                        <td>{{details.receiver_number}}</td>
+                                        <td class="text-right">{{details.characters_count}}</td>
+                                        <td class="text-right">{{details.sms_count}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <dir-pagination-controls
+                                max-size="7"
+                                direction-links="true"
+                                boundary-links="true" >
+                            </dir-pagination-controls>
+                        </uib-tab>
+                    </uib-tabset>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+            //Date picker
+            $('#datepicker').datepicker({
+                autoclose: true
+            });
+</script>

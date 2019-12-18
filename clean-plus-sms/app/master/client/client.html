@@ -1,0 +1,87 @@
+<section class="content-header">
+    <h1>
+        MANAGE CLIENT
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-user"></i> Home</a></li>
+        <li><a href="#">Master</a></li>
+        <li class="active">Manage Client</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="box box-success">
+                <div class="box-body">
+                    <div class="form-group">
+                        <label>Name :</label>
+                        <input type="text" class="form-control" ng-model="clientTempData.name">
+                        <label>User Name :</label>
+                        <input type="text" class="form-control" ng-model="clientTempData.user_name">
+                        <label>Password :</label>
+                        <input type="text" class="form-control" ng-model="clientTempData.password">
+                        <label>Sender ID :</label>
+                        <input type="text" class="form-control" ng-model="clientTempData.sender_id">
+                        <br>
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-danger" ng-click="getApiKey();" ng-disabled="clientTempData.index_no">API KEY</button>
+                            </div>
+                            <input type="text" class="form-control" readonly  ng-model="clientTempData.api_key">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="box-footer">
+                        <input type="submit" class="btn btn-primary" value="SAVE" ng-click="saveClient();" ng-show="!clientTempData.index_no"/>
+                        <input type="submit" class="btn btn-success" value="UPDATE" ng-click="updateClient();" ng-show="clientTempData.index_no"/>
+                        <input type="submit" class="btn btn-danger" value="CLEAR" ng-click="clear();"/>
+                    </div>
+                </div>                
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="box box-success">
+                <div class="box-body">
+                    <div class="input-group col-md-8">
+                        <div class="input-group-addon">
+                            <i class="fa fa-search"></i>
+                        </div>
+                        <input type="text" class="form-control" ng-model="search.name">
+                    </div>
+                    <br>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th style="width: 10px">#</th>
+                                <th>Name</th>
+                                <th>Api Key</th>
+                                <th>Sender ID</th>
+                                <th style="width: 40px">Status</th>
+                                <th style="width: 150px">&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr dir-paginate="client in clients|filter:search|itemsPerPage:9">
+                                <td>{{client.index_no}}</td>
+                                <td>{{client.name}}</td>
+                                <td>{{client.api_key}}</td>
+                                <td>{{client.sender_id}}</td>
+                                <td><span class="badge bg-green" ng-show="client.status === 'ACTIVE'">AVTIVE</span></td>
+                                <td>
+                                    <input type="submit" value="EDIT" class="btn btn-primary btn-xs" ng-click="editClient(client);"/>
+                                    <input type="submit" value="DELETE" class="btn btn-danger btn-xs" ng-click="deleteClient(client.index_no);"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <dir-pagination-controls
+                        max-size="9"
+                        direction-links="true"
+                        boundary-links="true" >
+                    </dir-pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,61 @@
+.smart-scroll-x{
+    overflow-x: scroll;
+}
+
+.smart-scroll-y{
+    overflow-y: scroll;
+}
+
+.smart-scroll-x::-webkit-scrollbar, .smart-scroll-y::-webkit-scrollbar {
+    width: 5px;
+}
+
+.smart-scroll-x::-webkit-scrollbar-track, .smart-scroll-y::-webkit-scrollbar-track {
+    display: none;
+}
+
+.smart-scroll-x::-webkit-scrollbar-thumb, .smart-scroll-y::-webkit-scrollbar-thumb {
+    background-color: #999999;
+    border-radius: 2px;
+}
+
+.background-ultra-dark.smart-scroll-x::-webkit-scrollbar-thumb, .background-ultra-dark.smart-scroll-y::-webkit-scrollbar-thumb {
+    background-color: #999999 !important;
+}
+
+.col-xs-1, 
+.col-xs-2, 
+.col-xs-3, 
+.col-xs-4, 
+.col-xs-5, 
+.col-xs-6, 
+.col-xs-7, 
+.col-xs-8, 
+.col-xs-9,
+.col-xs-10, 
+.col-xs-11, 
+.col-xs-12 
+{
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+.smart-scroll-y.col-xs-1, 
+.smart-scroll-y.col-xs-2, 
+.smart-scroll-y.col-xs-3, 
+.smart-scroll-y.col-xs-4, 
+.smart-scroll-y.col-xs-5, 
+.smart-scroll-y.col-xs-6, 
+.smart-scroll-y.col-xs-7, 
+.smart-scroll-y.col-xs-8, 
+.smart-scroll-y.col-xs-9,
+.smart-scroll-y.col-xs-10, 
+.smart-scroll-y.col-xs-11, 
+.smart-scroll-y.col-xs-12 
+{
+    padding-right: 5px !important;
+}
+
+.row{
+    margin-left: -10px !important;
+    margin-right: -10px !important;
+}
